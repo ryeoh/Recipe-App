@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>API Project: Recipe App</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+
+    <div class="container">
+        <h1>Recipe App</h1>
+
+        <form>
+          <label for="includeIngredients">Includes</label>
+          <input id="incIngred" required>
+          <input type="submit" value="Submit"><br>
+            <input type="button" class="addMore" value="+">
+        </form>
+
+        <form>
+            <label for="excludeIngredients">Excludes</label>
+            <input id="excIngred" required>
+            <input type="submit" value="Submit"><br>
+              <input type="button" class="addMore" value="+">
+        </form>
+
+        <section class="results hidden">
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
