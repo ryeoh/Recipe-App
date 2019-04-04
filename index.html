@@ -11,20 +11,26 @@
     <div class="container">
         <h1>Recipe App</h1>
 
-        <form>
-          <label for="includeIngredients">Includes</label>
-          <input id="incIngred" required>
-          <input type="submit" value="Submit"><br>
-            <input type="button" class="addMore" value="+">
-        </form>
-
-        <form>
-            <label for="excludeIngredients">Excludes</label>
-            <input id="excIngred" required>
+        <!-- <div class="includes-list"> -->
+          <form class="inc-form">
+            <label for="includeIngredients">Includes</label>
+            <input class="incIngred">
             <input type="submit" value="Submit"><br>
-              <input type="button" class="addMore" value="+">
-        </form>
-
+            <ul class="includes-list"></ul>
+              <!-- <input type="button" class="addMore" value="+"> -->
+          </form>
+        <!-- </div> -->
+<!-- 
+        <div class="excludes-list"> -->
+          <form class="exc-form">
+              <label for="excludeIngredients">Excludes</label>
+              <input class="excIngred">
+              <input type="submit" value="Submit"><br>
+              <ul class="excludes-list"></ul>
+                <!-- <input type="button" class="addMore" value="+"> -->
+          </form>
+        <!-- </div> -->
+        <p class="error-message"></p>
         <section class="results hidden">
         </section>
     </div>
