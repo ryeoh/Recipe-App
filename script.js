@@ -10,34 +10,46 @@ const searchUrl='https://api.yummly.com/v1/api/recipes';
 // Format string 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
-        .map(key => `${encodeURIComponent(key)} = ${encodeURIComponent(params[key])}`)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     return queryItems.join('&');
 }
 
-// Watch form for input
+const includes = [];
+const excludes = [];
+
+// Watch form for input and capture input values into variables
 function watchForm() {
-    const includes = [];
-    const excludes = [];
-    $('.inc-form').submit(event => {
+
+    $('form').submit(event => {
         event.preventDefault();
-        includes.push($('.incIngred').val());
-        $('.includes-list').html(`<li>${includes}</li>`);
+        if ($('.incIngred').val() !== "") {
+            includes.push($('.incIngred').val());
+        }
+        if ($('.excIngred').val() !== "") {
+            excludes.push($('.excIngred').val());
+        }
+        $('.inc-ingred-list').html(`<li>Includes: ${includes}</li>`);
+        console.log(includes);
+        $('.exc-ingred-list').html(`<li>Excludes: ${excludes}</li>`);
+        console.log(excludes);
+    })
+}
+
+// Once all the inputs are chosen, listen for "Go" click to make call to "search recipes"
+function startSearch() {
+    $('.start-search').click(function() {
+        console.log('click!');
+        searchRecipes(includes, excludes);
     });
-    $('.exc-form').submit(event => {
-        event.preventDefault();
-        excludes.push($('.excIngred').val());
-        $('.excludes-list').html(`<li>${excludes}</li>`);
-    });
-    console.log(includes, excludes);
 }
 
 // Make call to Yummly API for "search recipes"
 function searchRecipes(includes, excludes) {
     let params = {
-        'api_id': apiId,
-        'api_key': apiKey,
+        '_app_id': apiId,
+        '_app_key': apiKey,
         q: includes,
-        excludedIngredients: excludes
+        excludedIngredient: excludes
     };
     const queryString = formatQueryParams(params);
     const url = searchUrl + '?' + queryString;
@@ -50,7 +62,7 @@ function searchRecipes(includes, excludes) {
                 return response.json();
             } throw new Error (response.statusText);
         })
-        .then(responseJson => console.log(responseJson))
+        .then(responseJson => displayResults(responseJson))
         .catch(err => {
             $('.error-message').text(`Something went wrong: ${err.message}`);
         });
@@ -59,7 +71,14 @@ function searchRecipes(includes, excludes) {
 // Display the results
 function displayResults(responseJson) {
     console.log(responseJson);
-
+    $('.results-list').empty();
+    // iterate through the items array
+    for (let i = 0; i < responseJson.matches.length; i++) {
+        $('.results-list').append(
+            `<li><img src='${responseJson.matches[i].smallImageUrls}'><h3>${responseJson.matches[i].recipeName}</h3></li>`
+    )};
+    // display results section
+    $('.results').removeClass('hidden');
 }
 
 // Make call to API for "get recipes"
@@ -71,4 +90,7 @@ function displayResults(responseJson) {
 // }
     
 
-$(watchForm);
+$(function() {
+    watchForm();
+    startSearch();
+})
