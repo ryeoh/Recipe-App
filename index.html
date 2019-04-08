@@ -12,11 +12,34 @@
         <h1>Recipe App</h1>
 
           <form class="form">
-            <label for="includeIngredients">Includes</label>
-              <input class="incIngred">
-            <label for="excludeIngredients">Excludes</label>
-              <input class="excIngred">
-            <input type="submit" value="Submit"><br>
+            <fieldset class="includeIngredients">
+              <legend for="incIngredients">Includes: </legend>
+                <input type="text" class="incIngred">
+                <button type="button" class="addMore" value="+">+</button>
+            </fieldset>
+
+            <fieldset class="excludeIngredients">
+              <legend for="excIngredients">Excludes: </legend><br>
+                <input type="checkbox" class="excIngred-1" value="dairy">
+                  <label for="excIngred-1" class="inline">dairy</label><br>
+                <input type="checkbox" class="excIngred-2" value="eggs">
+                  <label for="excIngred-2" class="inline">eggs</label><br>
+                <input type="checkbox" class="excIngred-3" value="tree nuts">
+                  <label for="excIngred-3" class="inline">tree nuts</label><br>
+                <input type="checkbox" class="excIngred-4" value="peanuts">
+                  <label for="excIngred-4" class="inline">peanuts</label><br>
+                <input type="checkbox" class="excIngred-5" value="shellfish">
+                  <label for="excIngred-5" class="inline">shellfish</label><br>
+                <input type="checkbox" class="excIngred-6" value="wheat">
+                  <label for="excIngred-6" class="inline">wheat</label><br>
+                <input type="checkbox" class="excIngred-7" value="soy">
+                  <label for="excIngred-7" class="inline">soy</label><br>
+                <input type="checkbox" class="excIngred-8" value="fish">
+                  <label for="excIngred-8" class="inline">fish</label><br>
+                  <button type="button" class="addExc" value="+">+</button>
+            </fieldset>
+
+            <input type="submit" class="ingredients" value="Submit"><br>
             <ul class="inc-ingred-list"></ul>
             <ul class="exc-ingred-list"></ul>
           </form><br>

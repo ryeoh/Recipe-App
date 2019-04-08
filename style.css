@@ -4,12 +4,43 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
   
 form {
     display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
+    padding: 10px;
+}
+
+.includeIngredients > input {
+    display: block;
+}
+
+button.addMore, button.addExc {
+    width: 50px;
+}
+
+input[type="checkbox"] {
+    display: inline;
+    margin-bottom: 1em;
+}
+
+.excIngred {
+    display: block;
+}
+
+button.start-search {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+/* submit input button */
+.ingredients {
+    width: 100px;
 }
   
 .container {

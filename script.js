@@ -19,19 +19,38 @@ const excludes = [];
 
 // Watch form for input and capture input values into variables
 function watchForm() {
-
     $('form').submit(event => {
         event.preventDefault();
-        if ($('.incIngred').val() !== "") {
-            includes.push($('.incIngred').val());
+        if ('input[type=text].incIngred' !== '') {
+            $('input[type=text].incIngred').each(function(i) {
+                includes[i] = $(this).val();
+            });
         }
-        if ($('.excIngred').val() !== "") {
-            excludes.push($('.excIngred').val());
+        $(':checkbox:checked').each(function(i) {
+            excludes[i] = $(this).val();
+        });
+        if ('input[type=text].excIngred' !== '') {
+            $('input[type=text].excIngred').each(function(i) {
+                excludes[i] = $(this).val();
+            });
         }
-        $('.inc-ingred-list').html(`<li>Includes: ${includes}</li>`);
         console.log(includes);
-        $('.exc-ingred-list').html(`<li>Excludes: ${excludes}</li>`);
         console.log(excludes);
+    })
+    startSearch();
+}
+
+// Listen for "add more" click to  include more ingredients to create an additional input
+function addIngred() {
+    $('.addMore').click(function() {
+        $('.includeIngredients').append(`<input type="text" class="incIngred">`);
+    })
+}
+
+// Listen for "add exc" click to create additional input boxes
+function excIngred() {
+    $('.addExc').click(function() {
+        $('.excludeIngredients').append(`<input type="text" class="excIngred">`);
     })
 }
 
@@ -52,11 +71,11 @@ function searchRecipes(includes, excludes) {
         excludedIngredient: excludes
     };
     const queryString = formatQueryParams(params);
-    const url = searchUrl + '?' + queryString;
+    const url1 = searchUrl + '?' + queryString;
 
-    console.log(url);
+    console.log(url1);
 
-    fetch(url)
+    fetch(url1)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -75,22 +94,28 @@ function displayResults(responseJson) {
     // iterate through the items array
     for (let i = 0; i < responseJson.matches.length; i++) {
         $('.results-list').append(
-            `<li><img src='${responseJson.matches[i].smallImageUrls}'><h3>${responseJson.matches[i].recipeName}</h3></li>`
+            `<li><h3>${responseJson.matches[i].recipeName}</h3><br><img src='${responseJson.matches[i].smallImageUrls}'></li>`
     )};
     // display results section
     $('.results').removeClass('hidden');
 }
 
 // Make call to API for "get recipes"
-// function getRecipes() {
+function getRecipes(responseJson) {
     // Listen for click on a recipe
+    const recipeId = `${responseJson.matches[i].id}`;
+    const url2 = searchUrl + '?' + recipeId + formatQueryParams(params);
+    console.log(url2);
 //     $('').on('click', event => {
         
 //     });
-// }
+}
     
 
 $(function() {
     watchForm();
-    startSearch();
+    addIngred();
+    excIngred();
+    // startSearch();
+    // getRecipes()
 })
