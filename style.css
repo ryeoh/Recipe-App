@@ -3,7 +3,7 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Questrial', sans-serif;
     font-size: 18px;
 }
   
@@ -14,33 +14,47 @@ form {
     padding: 10px;
 }
 
-.includeIngredients > input {
+h3 {
+    margin-top: 40px;
+}
+
+.general-search > input {
     display: block;
+    padding-left: 5px;
+}
+
+input.incIngred {
+    display: block;
+    padding-left: 5px;
+}
+
+input.excIngred {
+    display: block;
+    padding-left: 5px;
 }
 
 button.addMore, button.addExc {
-    width: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 131px;
 }
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
     display: inline;
     margin-bottom: 1em;
-}
+} */
 
-.excIngred {
-    display: block;
-}
-
-button.start-search {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    padding: 10px;
-    margin-left: 10px;
-}
 
 /* submit input button */
 .ingredients {
-    width: 100px;
+    width: 160px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: #f75151;
+    color: white;
 }
   
 .container {

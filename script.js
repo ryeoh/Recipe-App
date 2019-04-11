@@ -12,22 +12,25 @@ const recipeUrl = 'https://api.yummly.com/v1/api/recipe';
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    let search = $('.gen-search').val();
+    
     let includes = [];
     let excludes = [];
-    if ($('.incIngred').val() !== "") {
-      $('.incIngred').each(function (i) {
-        includes[i] = $(this).val();
-      });
-    }
-
-    if ($('.excIngred').val() !== "") {
-      $('.excIngred').each(function (i) {
-        excludes[i] = $(this).val();
-      });
-    }
-    searchRecipes(search, includes, excludes);
+    $('.incIngred').each(function(i) {
+      includes[i] = $(this).val();
+    });
+    $('.excIngred').each(function(i) {
+      excludes[i] = $(this).val();
+    });
+    cleanArr(includes, excludes);
   })
+}
+
+// Remove values in the includes/excludes arrays that are blank/empty strings
+function cleanArr(includes, excludes) {
+  let includes2 = includes.filter(value => value !== '');
+  let excludes2 = excludes.filter(value => value !== '');
+  let search = $('.gen-search').val();
+  searchRecipes(search, includes2, excludes2);
 }
 
 // Format string 
@@ -36,29 +39,26 @@ function formatQueryParams(params, includes, excludes) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
 
   let queryString = queryItems.join('&');
-
   includes.forEach(included => {
     queryString += `&allowedIngredient=${included}`;
   });
-  
   excludes.forEach(excluded => {
     queryString += `&excludedIngredient=${excluded}`;
   });
-  
   return queryString;
 }
 
 // Listen for "add more" click to  include more ingredients to create an additional input
 function addIngred() {
   $('.addMore').click(function () {
-    $('.includeIngredients').append(`<input type="text" class="incIngred">`);
+    $('.inc-inputs').append(`<input type="text" class="incIngred">`);
   })
 }
 
 // Listen for "add exc" click to create additional input boxes
 function excIngred() {
   $('.addExc').click(function () {
-    $('.excludeIngredients').append(`<input type="text" class="excIngred">`);
+    $('.exc-inputs').append(`<input type="text" class="excIngred">`);
   })
 }
 
@@ -72,7 +72,6 @@ function searchRecipes(search, includes, excludes) {
 
   console.log(includes);
   console.log(excludes);
-
   console.log(params1);
 
   const queryString = formatQueryParams(params1, includes, excludes);
@@ -99,7 +98,7 @@ function displayResults(responseJson) {
   // iterate through the items array
   for (let i = 0; i < responseJson.matches.length; i++) {
     $('.results-list').append(
-      `<li><a class='recipe-details' href='${recipeUrl}/${responseJson.matches[i].id}?_app_id=${apiId}&_app_key=${apiKey}'><h3>${responseJson.matches[i].recipeName}</h3></a><br><img src='${responseJson.matches[i].smallImageUrls}'></li>`
+      `<ul><li><a class='recipe-details' href='${recipeUrl}/${responseJson.matches[i].id}?_app_id=${apiId}&_app_key=${apiKey}'><h3>${responseJson.matches[i].recipeName}</h3></a><br><img src='${responseJson.matches[i].smallImageUrls}'></li></ul>`
     )
   };
   // display results section

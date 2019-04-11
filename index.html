@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width">
     <title>API Project: Recipe App</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   </head>
   <body>
 
     <div class="container">
         <h1>Recipe App</h1>
-        <p>Recipes that are right for you!</p>
+        <p>Find recipes that are right for you!</p>
 
         <h3>Filter by Ingredients</h3>
           <form class="form">
               <fieldset class="general-search">
-                  <legend>Search for: </legend>
-                    <input type="text" class="gen-search" required>
-                </fieldset>
+                <legend>Search for: </legend>
+                  <input type="text" class="gen-search" placeholder="soup" required>
+              </fieldset>
 
             <fieldset class="includeIngredients">
               <legend for="incIngredients">Includes: </legend>
-                <input type="text" class="incIngred">
-                <button type="button" class="addMore" value="+">+</button>
+                <div class="inc-inputs">
+                  <input type="text" class="incIngred" placeholder="chicken">
+                </div>
+                <button type="button" class="addMore" value="+">+ ingredient</button>
             </fieldset>
 
             <fieldset class="excludeIngredients">
               <legend for="excIngredients">Excludes: </legend>
-                <input type="text" class="excIngred">
-                <button type="button" class="addExc" value="+">+</button>
+                <div class="exc-inputs">
+                  <input type="text" class="excIngred" placeholder="cheese">
+                </div>
+                <button type="button" class="addExc" value="+">+ ingredient</button>
             </fieldset>
 
             <input type="submit" class="ingredients" value="Search for recipes"><br>
@@ -41,7 +46,7 @@
         <p class="error-message"></p>
         <section class="results hidden">
             <h2>Search results</h2>
-            <ul class="results-list"></ul>
+            <div class="results-list"></div>
         </section>
     </div>
 
