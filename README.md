@@ -18,11 +18,11 @@ Having a lot of friends with many dietary needs and restrictions, I wanted a rec
 
 ## Screenshots
 Landing Page:
-![Landing page](screenshots⁩/Landing-page.png)
+![Landing page](screenshots/Landing-page.png)
 
 List of recipe search:
 ![Recipe Search](screenshots/Searched-recipes-list.png)
 
 Details of recipe:
-![Recipe Details](screenshots⁩/Recipe-details1.png)
-![Recipe Details](screenshots⁩/Recipe-details2.png)
+![Recipe Details1](screenshots/Recipe-details1.png)
+![Recipe Details2](screenshots/Recipe-details2.png)
