@@ -17,13 +17,13 @@
           <form class="form">
               <fieldset class="general-search">
                 <legend>Search for: </legend>
-                  <input type="text" class="gen-search" placeholder="soup" required>
+                  <input type="text" class="gen-search" placeholder="e.g soup" required>
               </fieldset>
 
             <fieldset class="includeIngredients">
               <legend for="incIngredients">Includes: </legend>
                 <div class="inc-inputs">
-                  <input type="text" class="incIngred" placeholder="chicken">
+                  <input type="text" class="incIngred" placeholder="e.g chicken">
                 </div>
                 <button type="button" class="addMore" value="+">+ ingredient</button>
             </fieldset>
@@ -31,22 +31,23 @@
             <fieldset class="excludeIngredients">
               <legend for="excIngredients">Excludes: </legend>
                 <div class="exc-inputs">
-                  <input type="text" class="excIngred" placeholder="cheese">
+                  <input type="text" class="excIngred" placeholder="e.g cheese">
                 </div>
                 <button type="button" class="addExc" value="+">+ ingredient</button>
             </fieldset>
 
             <input type="submit" class="ingredients" value="Search for recipes"><br>
-            <ul class="inc-ingred-list"></ul>
-            <ul class="exc-ingred-list"></ul>
+            <button type="click" class="reset" value="New search">New search</button>
           </form><br>
 
-        <!-- <button type="submit" class="start-search">Search for recipes!</button> -->
-
         <p class="error-message"></p>
-        <section class="results hidden">
-            <h2>Search results</h2>
-            <div class="results-list"></div>
+        <button type="button" class="go-back hidden">Go back to list</button>
+        <section class="results">
+            <div class="results-list hidden">
+              <h2>Search results</h2>
+            </div>
+            <div class="result-details hidden"></div>
+            <button type="button" class="go-back hidden">Go back to list</button>
         </section>
     </div>
 

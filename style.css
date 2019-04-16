@@ -2,9 +2,21 @@
     box-sizing: border-box;
 }
 
+html, body {
+    min-height: 100%;
+}
+
+html {
+    background: linear-gradient(to right, #FBFAFB, #E1EBEB);
+}
+
 body {
     font-family: 'Questrial', sans-serif;
     font-size: 18px;
+}
+
+h1 {
+    font-size: 50px;
 }
   
 form {
@@ -14,40 +26,68 @@ form {
     padding: 10px;
 }
 
+.container {
+    margin: 75px auto;
+    text-align: center;
+}
+
 h3 {
-    margin-top: 40px;
+    margin: 0;
+}
+
+::placeholder {
+    font-style: italic;
+    color: lightgrey;
 }
 
 .general-search > input {
     display: block;
     padding-left: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 14px;
 }
 
 input.incIngred {
     display: block;
     padding-left: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 14px;
 }
 
 input.excIngred {
     display: block;
     padding-left: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 14px;
 }
 
 button.addMore, button.addExc {
-    margin-top: 5px;
     margin-bottom: 5px;
-    width: 131px;
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    border: 1px;
+    background-color: lightblue;
 }
 
-/* input[type="checkbox"] {
-    display: inline;
-    margin-bottom: 1em;
-} */
-
+button.reset {
+    width: 100%;
+    background-color: #f75151;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 5px;
+}
 
 /* submit input button */
 .ingredients {
-    width: 160px;
+    width: 100%;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     padding: 10px;
@@ -55,11 +95,6 @@ button.addMore, button.addExc {
     text-decoration: none;
     background-color: #f75151;
     color: white;
-}
-  
-.container {
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 .error-message {
@@ -70,3 +105,223 @@ button.addMore, button.addExc {
     display: none;
 }
 
+/* First list of results of recipes */
+
+li {
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.results {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: larger;
+}
+
+.results-list > ul {
+    padding: 0;
+}
+
+.results-list > h3 {
+    margin: 0;
+}
+
+.recipe-details > li {
+    background-color: hsl(195, 53%, 79%, 0.6);
+    margin: 10px 0;
+}
+
+.recipe-details * img {
+    width: 150px;
+}
+
+.recipe-details * h3 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.recipe-details * p {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.recipe-details {
+    text-decoration: none;
+    color: black;
+}
+
+.results > img {
+    width: 200px;
+}
+
+/* Second result for details of one recipe */
+
+.result-details {
+    text-align: left;
+    font-size: 18px;
+}
+
+.result-details > h2 {
+    text-align: center;
+    background-color: hsl(195, 53%, 79%, 0.6);
+    padding: 1em 1.5em;
+    text-transform: uppercase;
+}
+
+.result-details * a {
+    color: black;
+    text-decoration: none;
+}
+
+.result-details > h2:hover {
+    background-color: lightblue;
+}
+
+.result-details * a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.result-details > li {
+    list-style: none;
+    text-align: left;
+    font-size: 18px;
+}
+
+.result-details > img {
+    width: 100%;
+} 
+
+button.go-back {
+    width: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: #f75151;
+    color: white;
+}
+
+@media screen and (min-width: 498px) {
+    .recipe-details > li {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 18px 15px;
+    }
+    .recipe-details > li:hover {
+        background: lightblue;
+        box-shadow: 3px 3px 3px 3px #ccc;
+        transition-delay: .02s;
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 725px) {
+    html {
+        background: url(https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2131&q=80) no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .recipe-details > li {
+        width: 60%;
+        background: hsl(195, 53%, 79%, 0.3);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .error-message {
+        width: 50%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px 20px;
+        background-color: rgb(255,255,255, 0.7);
+    }
+    .error-message:empty{
+        display: none;
+    }
+    button.go-back {
+        width: 30%;
+        font-size: 16px;
+    }
+    .result-details {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .result-details > h2 {
+        width: 90%;
+    }
+    .result-details > ul {
+        padding-left: 15%;
+        background-color: rgb(255,255,255, 0.7);
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .result-details > img {
+        width: 90%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    h1 {
+        font-size: 60px;
+        margin: 30px auto;
+    }
+    .container > p {
+        font-size: 20px;
+    }
+    .container > h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    legend {
+        font-size: 20px;
+    }
+    .form {
+        width: 40%;
+    }
+    .form * input {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 16px;
+    }
+    button.addMore, button.addExc {
+        width: 80%;
+        font-size: 16px;
+    }
+    .ingredients {
+        width: 90%;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+    button.reset {
+        width: 90%;
+        margin-top: 7px;
+        font-size: 18px;
+    }
+    .recipe-details > li {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .form {
+        width: 30%;
+    }
+    .container {
+        margin: 10% auto;
+        text-align: center;
+    }
+}

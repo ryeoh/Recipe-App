@@ -12,7 +12,6 @@ const recipeUrl = 'https://api.yummly.com/v1/api/recipe';
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    
     let includes = [];
     let excludes = [];
     $('.incIngred').each(function(i) {
@@ -25,11 +24,31 @@ function watchForm() {
   })
 }
 
+// Reset form for new search
+function resetForm() {
+  $('.reset').on('click', function(e) {
+    e.preventDefault();
+    $('.results-list').empty();
+    $('.result-details').empty();
+    $('.error-message').empty();
+    $('.go-back').addClass('hidden');
+    $('.form').trigger('reset');
+  });
+}
+
 // Remove values in the includes/excludes arrays that are blank/empty strings
 function cleanArr(includes, excludes) {
   let includes2 = includes.filter(value => value !== '');
   let excludes2 = excludes.filter(value => value !== '');
   let search = $('.gen-search').val();
+  for (let i=0; i < includes2.length; i++) {
+    if (excludes2.includes(includes[i])) {
+      $('.error-message').text('Something went wrong: You are excluding and including the same ingredient! Please try another search.');
+      return false;
+    } else {
+      $('.error-message').empty();
+    }
+  }
   searchRecipes(search, includes2, excludes2);
 }
 
@@ -52,6 +71,7 @@ function formatQueryParams(params, includes, excludes) {
 function addIngred() {
   $('.addMore').click(function () {
     $('.inc-inputs').append(`<input type="text" class="incIngred">`);
+    $('.incIngred').focus();
   })
 }
 
@@ -59,12 +79,13 @@ function addIngred() {
 function excIngred() {
   $('.addExc').click(function () {
     $('.exc-inputs').append(`<input type="text" class="excIngred">`);
+    $('.excIngred').focus();
   })
 }
 
 // Make call to Yummly API for "search recipes"
 function searchRecipes(search, includes, excludes) {
-  let params1 = {
+  let params = {
     '_app_id': apiId,
     '_app_key': apiKey,
     q: search,
@@ -72,9 +93,8 @@ function searchRecipes(search, includes, excludes) {
 
   console.log(includes);
   console.log(excludes);
-  console.log(params1);
 
-  const queryString = formatQueryParams(params1, includes, excludes);
+  const queryString = formatQueryParams(params, includes, excludes);
   const url1 = searchUrl + '?' + queryString;
 
   console.log(url1);
@@ -95,24 +115,30 @@ function searchRecipes(search, includes, excludes) {
 function displayResults(responseJson) {
   console.log(responseJson);
   $('.results-list').empty();
+  if (responseJson.matches === undefined || responseJson.matches.length === 0) {
+    $('.error-message').text('There were no recipes found that matches those ingredients. Please try another search!')
+  }
   // iterate through the items array
   for (let i = 0; i < responseJson.matches.length; i++) {
     $('.results-list').append(
-      `<ul><li><a class='recipe-details' href='${recipeUrl}/${responseJson.matches[i].id}?_app_id=${apiId}&_app_key=${apiKey}'><h3>${responseJson.matches[i].recipeName}</h3></a><br><img src='${responseJson.matches[i].smallImageUrls}'></li></ul>`
+      `<ul><a class='recipe-details' href='${recipeUrl}/${responseJson.matches[i].id}?_app_id=${apiId}&_app_key=${apiKey}'><li><h3>${responseJson.matches[i].sourceDisplayName}: ${responseJson.matches[i].recipeName}</h3><p>Yummly rating: ${responseJson.matches[i].rating} out of 5 stars</p><br><img src='${responseJson.matches[i].smallImageUrls}'></li></a></ul>`
     )
   };
   // display results section
-  $('.results').removeClass('hidden');
-  getRecipes(responseJson);
+  $('.results-list').removeClass('hidden');
+  scrollPage();
+  getRecipes();
 }
 
+// smooth scroll affect
+function scrollPage() {
+  $('body, html').animate({
+    scrollTop: $('.results').offset().top - 20}, 1000);
+};
+
 // Make call to API for "get recipes"
-function getRecipes(responseJson) {
+function getRecipes() {
   // Listen for click on a recipe
-  const params2 = {
-    '_app_id': apiId,
-    '_app_key': apiKey
-  }
   $('.recipe-details').on('click', function (event) {
     event.preventDefault();
     const url2 = $(this).attr("href");
@@ -126,6 +152,7 @@ function getRecipes(responseJson) {
       })
       .then(responseJson => displayDetails(responseJson))
       .catch(err => {
+        console.log(err);
         $('.error-message').text(`Something went wrong: ${err.message}`);
       });
   });
@@ -134,17 +161,27 @@ function getRecipes(responseJson) {
 // Display the details of selected recipe
 function displayDetails(responseJson) {
   console.log(responseJson);
+  $('.results-list').addClass('hidden');
+  $('.go-back').removeClass('hidden');
   const ingredientsList = makeIngredientsList(responseJson.ingredientLines);
-  $('.results-list').empty();
-  $('.results-list').append(`<a href="${responseJson.source.sourceRecipeUrl}"><h2>${responseJson.name}</h2></a>
-    <ul><li>Yields: ${responseJson.yield}</li>
-        <li>Prep time: ${responseJson.prepTime}</li>
-        <li>Cook time: ${responseJson.cookTime}</li>
-        <li>Total time: ${responseJson.totalTime}</li>
-    </ul>
+  const htmlString = `<h2><a href="${responseJson.source.sourceRecipeUrl}">${responseJson.source.sourceDisplayName}: ${responseJson.name}</a></h2>
+  <ul><li>Yields: ${responseJson.yield}</li>
+      <li>Prep time: ${responseJson.prepTime}</li>
+      <li>Cook time: ${responseJson.cookTime}</li>
+      <li>Total time: ${responseJson.totalTime}</li>
+  </ul>
   <img src='${responseJson.images[0].hostedLargeUrl}' alt='picture of resulting food'>
-      <ul>${ingredientsList}</ul>
-  `);
+    <ul>${ingredientsList}</ul>`;
+  $('.result-details').empty();
+  $('.result-details').append(htmlString);
+  // Check and replace any values in string that may contain 'undefined' or a blank
+  if (htmlString.includes(undefined) || htmlString.includes('')) {
+    let newHtmlString = htmlString.replace(/undefined|''/g, 'N/A');
+    $('.result-details').html(newHtmlString);
+  }
+  // Display the results
+  $('.result-details').removeClass('hidden');
+  returnToList();
 }
 
 // Make ingredients list
@@ -156,11 +193,19 @@ function makeIngredientsList(ingredientArr) {
   return ingredHtml;
 }
 
+// Go back to results-list 
+function returnToList() {
+  $('.go-back').on('click', function(e) {
+    $('.result-details').addClass('hidden');
+    $('.go-back').addClass('hidden');
+    $('.results-list').removeClass('hidden');
+  })
+  getRecipes();
+}
 
 $(function () {
   watchForm();
+  resetForm();
   addIngred();
   excIngred();
-  // startSearch();
-  // getRecipes()
 })
