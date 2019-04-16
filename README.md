@@ -18,11 +18,11 @@ Having a lot of friends with many dietary needs and restrictions, I wanted a rec
 
 ## Screenshots
 Landing Page:
-![Landing page](Macintosh HD⁩/Users⁩/racheloh⁩⁨/Desktop⁩/projects/api-project⁩/⁨screenshots⁩/Landing-page.png)
+![Landing page](screenshots⁩/Landing-page.png)
 
 List of recipe search:
-![Recipe Search](Macintosh HD⁩/Users⁩/racheloh⁩⁨/Desktop⁩/projects/api-project⁩/⁨screenshots⁩/Searched-recipes-list.png)
+![Recipe Search](screenshots/Searched-recipes-list.png)
 
 Details of recipe:
-![Recipe Details](Macintosh HD⁩/Users⁩/racheloh⁩⁨/Desktop⁩/projects/api-project⁩/⁨screenshots⁩/Recipe-details1.png)
-![Recipe Details](Macintosh HD⁩/Users⁩/racheloh⁩⁨/Desktop⁩/projects/api-project⁩/⁨screenshots⁩/Recipe-details2.png)
+![Recipe Details](screenshots⁩/Recipe-details1.png)
+![Recipe Details](screenshots⁩/Recipe-details2.png)
