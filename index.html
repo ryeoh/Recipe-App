@@ -9,12 +9,14 @@
   </head>
   <body>
 
-    <div class="container">
+    <div role="main" class="container">
+      <header>
         <h1>Recipe App</h1>
         <p>Find recipes that are right for you!</p>
+      </header>
 
         <h3>Filter by Ingredients</h3>
-          <form class="form">
+          <form role="form" class="form">
               <fieldset class="general-search">
                 <legend>Search for: </legend>
                   <input type="text" class="gen-search" placeholder="e.g soup" required>
@@ -42,7 +44,8 @@
 
         <p class="error-message"></p>
         <button type="button" class="go-back hidden">Go back to list</button>
-        <section class="results">
+
+        <section role="results" class="results">
             <div class="results-list hidden">
               <h2>Search results</h2>
             </div>

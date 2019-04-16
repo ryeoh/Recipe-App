@@ -169,6 +169,8 @@ li {
     background-color: hsl(195, 53%, 79%, 0.6);
     padding: 1em 1.5em;
     text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .result-details * a {
@@ -254,13 +256,17 @@ button.go-back {
         width: 60%;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 10px;
+        background-color: rgb(255,255,255, 0.7);
+        padding-top: 5px;
     }
     .result-details > h2 {
         width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
     .result-details > ul {
         padding-left: 15%;
-        background-color: rgb(255,255,255, 0.7);
         width: 70%;
         margin-left: auto;
         margin-right: auto;

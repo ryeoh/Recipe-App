@@ -36,7 +36,7 @@ function resetForm() {
   });
 }
 
-// Remove values in the includes/excludes arrays that are blank/empty strings
+// Remove values in the includes/excludes arrays that are blank or empty strings
 function cleanArr(includes, excludes) {
   let includes2 = includes.filter(value => value !== '');
   let excludes2 = excludes.filter(value => value !== '');
@@ -67,7 +67,7 @@ function formatQueryParams(params, includes, excludes) {
   return queryString;
 }
 
-// Listen for "add more" click to  include more ingredients to create an additional input
+// Create an new input box to include more ingredients
 function addIngred() {
   $('.addMore').click(function () {
     $('.inc-inputs').append(`<input type="text" class="incIngred">`);
@@ -75,7 +75,7 @@ function addIngred() {
   })
 }
 
-// Listen for "add exc" click to create additional input boxes
+// Create an new input box to exclude more ingredients
 function excIngred() {
   $('.addExc').click(function () {
     $('.exc-inputs').append(`<input type="text" class="excIngred">`);
@@ -90,7 +90,6 @@ function searchRecipes(search, includes, excludes) {
     '_app_key': apiKey,
     q: search,
   };
-
   console.log(includes);
   console.log(excludes);
 
@@ -98,7 +97,6 @@ function searchRecipes(search, includes, excludes) {
   const url1 = searchUrl + '?' + queryString;
 
   console.log(url1);
-
   fetch(url1)
     .then(response => {
       if (response.ok) {
@@ -118,13 +116,11 @@ function displayResults(responseJson) {
   if (responseJson.matches === undefined || responseJson.matches.length === 0) {
     $('.error-message').text('There were no recipes found that matches those ingredients. Please try another search!')
   }
-  // iterate through the items array
   for (let i = 0; i < responseJson.matches.length; i++) {
     $('.results-list').append(
       `<ul><a class='recipe-details' href='${recipeUrl}/${responseJson.matches[i].id}?_app_id=${apiId}&_app_key=${apiKey}'><li><h3>${responseJson.matches[i].sourceDisplayName}: ${responseJson.matches[i].recipeName}</h3><p>Yummly rating: ${responseJson.matches[i].rating} out of 5 stars</p><br><img src='${responseJson.matches[i].smallImageUrls}'></li></a></ul>`
     )
   };
-  // display results section
   $('.results-list').removeClass('hidden');
   scrollPage();
   getRecipes();
@@ -138,7 +134,6 @@ function scrollPage() {
 
 // Make call to API for "get recipes"
 function getRecipes() {
-  // Listen for click on a recipe
   $('.recipe-details').on('click', function (event) {
     event.preventDefault();
     const url2 = $(this).attr("href");
@@ -163,6 +158,7 @@ function displayDetails(responseJson) {
   console.log(responseJson);
   $('.results-list').addClass('hidden');
   $('.go-back').removeClass('hidden');
+
   const ingredientsList = makeIngredientsList(responseJson.ingredientLines);
   const htmlString = `<h2><a href="${responseJson.source.sourceRecipeUrl}">${responseJson.source.sourceDisplayName}: ${responseJson.name}</a></h2>
   <ul><li>Yields: ${responseJson.yield}</li>
@@ -172,6 +168,7 @@ function displayDetails(responseJson) {
   </ul>
   <img src='${responseJson.images[0].hostedLargeUrl}' alt='picture of resulting food'>
     <ul>${ingredientsList}</ul>`;
+
   $('.result-details').empty();
   $('.result-details').append(htmlString);
   // Check and replace any values in string that may contain 'undefined' or a blank
@@ -179,7 +176,6 @@ function displayDetails(responseJson) {
     let newHtmlString = htmlString.replace(/undefined|''/g, 'N/A');
     $('.result-details').html(newHtmlString);
   }
-  // Display the results
   $('.result-details').removeClass('hidden');
   scrollPage();
   returnToList();
@@ -204,7 +200,7 @@ function returnToList() {
   getRecipes();
 }
 
-$(function () {
+$(function() {
   watchForm();
   resetForm();
   addIngred();
