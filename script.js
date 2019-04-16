@@ -181,6 +181,7 @@ function displayDetails(responseJson) {
   }
   // Display the results
   $('.result-details').removeClass('hidden');
+  scrollPage();
   returnToList();
 }
 
